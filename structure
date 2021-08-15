@@ -1,0 +1,29 @@
+Engine Class:
+	Does:
+		Updating
+	Has:
+		Renderer Class
+		Event-Handler Class
+
+Renderer Class
+	LoadTexture
+
+GameObject:
+	Has:
+		Update Fuction
+
+Entity Class:
+	Has:
+		Sprite Class:
+			Has:
+				Texture
+				Source Rect (Sprite Mask)
+		Position X and Y
+	Is a GameObject
+
+Character Class
+	Is a Entity
+
+	Has:
+		Movement
+			Velocity based
