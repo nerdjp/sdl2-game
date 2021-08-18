@@ -2,6 +2,7 @@
 #include <vector>
 #include <array>
 #include <bitset>
+#include <iostream>
 #include "ECS/ECS.hpp"
 
 class Entity
@@ -14,15 +15,20 @@ public:
 		T* comp(new T(std::forward<TArgs>(args)...));
 		comp->setEntity(this);
 		components.emplace_back(comp);
-		componentArray[generateComponentTypeId<T>()] = comp;
-		componentBitSet[generateComponentTypeId<T>()] = true;
+		componentArray[getComponentTypeId<T>()] = comp;
+		componentBitSet[getComponentTypeId<T>()] = true;
 		comp->init();
 
 	}
 
 	template <class T> T* getComponent() const
 	{
-		Component* ptr(componentArray[generateComponentTypeId<T>()]);
+		if(!componentBitSet[getComponentTypeId<T>()])
+		{
+			std::cerr << "Tring to get a unexistent component" << std::endl;
+			return nullptr;
+		}
+		Component* ptr(componentArray[getComponentTypeId<T>()]);
 		return static_cast<T*>(ptr);
 	}
 

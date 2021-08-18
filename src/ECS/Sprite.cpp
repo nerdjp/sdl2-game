@@ -25,12 +25,6 @@ AnimatedSprite::AnimatedSprite(SDL_Texture *texture, int spriteW, int spriteH, i
 	spriteMask.h = spriteH;
 }
 
-void Sprite::setPosition(Vector position)
-{
-	/* this->position = position; */
-	/* std::cout << this->position.x << " " << this->position.y << std::endl; */
-}
-
 void AnimatedSprite::update()
 {
 	if(animate == true)

@@ -13,15 +13,14 @@ public:
 	Sprite(SDL_Texture *texture);
 	SDL_Texture* getSprite() { return sprite; }
 	SDL_Rect getSpriteMask() { return spriteMask; }
-	void setPosition(Vector position);
-	Transform* getPosition() { return position; }
+	const Transform* getPosition() const { return position; }
 	virtual void init() override;
 	virtual void update() override;
 
 protected:
 	SDL_Texture* sprite;
 	SDL_Rect spriteMask;
-	Transform* position;
+	const Transform* position;
 
 };
 

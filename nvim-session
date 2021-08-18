@@ -9,7 +9,7 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +26 src/Main.cpp
-badd +10 src/Character.cpp
+badd +1 src/Character.cpp
 badd +1 src/include/Character.hpp
 badd +1 src/Engine.cpp
 badd +1 src/include/Engine.hpp
@@ -44,8 +44,10 @@ badd +1 include/GameObject.hpp
 badd +1 include/Math.hpp
 badd +1 include/Renderer.hpp
 badd +1 include/ECS/ECS.hpp
-badd +1 include/ECS/Sprite.hpp
+badd +17 include/ECS/Sprite.hpp
 badd +8 src/ECS/Sprite.cpp
+badd +0 include/ECS/Controller.hpp
+badd +0 src/ECS/Controller.cpp
 argglobal
 %argdel
 $argadd src/Main.cpp
@@ -80,7 +82,7 @@ if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 24
-normal! 060|
+normal! 08|
 tabnext
 edit include/ECS/ECS.hpp
 let s:save_splitbelow = &splitbelow
@@ -177,12 +179,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 5 - ((4 * winheight(0) + 11) / 23)
+let s:l = 16 - ((7 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 5
-normal! 09|
+keepjumps 16
+normal! 045|
 wincmd w
 argglobal
 if bufexists("src/ECS/Sprite.cpp") | buffer src/ECS/Sprite.cpp | else | edit src/ECS/Sprite.cpp | endif
@@ -200,11 +202,11 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 19 - ((8 * winheight(0) + 11) / 23)
+let s:l = 27 - ((1 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 19
+keepjumps 27
 normal! 0
 wincmd w
 exe '1resize ' . ((&lines * 23 + 25) / 50)
@@ -358,7 +360,7 @@ wincmd w
 exe '1resize ' . ((&lines * 23 + 25) / 50)
 exe '2resize ' . ((&lines * 23 + 25) / 50)
 tabnext
-edit include/Character.hpp
+edit include/ECS/Controller.hpp
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -378,7 +380,7 @@ set winwidth=1
 exe '1resize ' . ((&lines * 23 + 25) / 50)
 exe '2resize ' . ((&lines * 23 + 25) / 50)
 argglobal
-balt src/include/Character.hpp
+balt src/ECS/Controller.cpp
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -389,19 +391,19 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 8 - ((7 * winheight(0) + 11) / 23)
+let s:l = 1 - ((0 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 8
-normal! 07|
+keepjumps 1
+normal! 0
 wincmd w
 argglobal
-if bufexists("src/Character.cpp") | buffer src/Character.cpp | else | edit src/Character.cpp | endif
+if bufexists("src/ECS/Controller.cpp") | buffer src/ECS/Controller.cpp | else | edit src/ECS/Controller.cpp | endif
 if &buftype ==# 'terminal'
-  silent file src/Character.cpp
+  silent file src/ECS/Controller.cpp
 endif
-balt src/include/Character.hpp
+balt include/ECS/Controller.hpp
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -412,11 +414,11 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 9 - ((8 * winheight(0) + 11) / 23)
+let s:l = 1 - ((0 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 9
+keepjumps 1
 normal! 0
 wincmd w
 exe '1resize ' . ((&lines * 23 + 25) / 50)
@@ -458,7 +460,7 @@ if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 13
-normal! 035|
+normal! 09|
 wincmd w
 argglobal
 if bufexists("src/Entity.cpp") | buffer src/Entity.cpp | else | edit src/Entity.cpp | endif
@@ -629,7 +631,7 @@ if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 33
-normal! 08|
+normal! 0
 wincmd w
 exe '1resize ' . ((&lines * 23 + 25) / 50)
 exe '2resize ' . ((&lines * 23 + 25) / 50)
@@ -666,7 +668,6 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
-nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :

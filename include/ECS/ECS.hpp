@@ -11,7 +11,7 @@ inline std::size_t generateNewUniqueId()
 	return id++;
 }
 
-template<class T> inline std::size_t generateComponentTypeId()
+template<class T> inline std::size_t getComponentTypeId()
 {
 	static std::size_t typeId = generateNewUniqueId();
 	return typeId;

@@ -3,5 +3,7 @@ Math.hpp vector class
 FPS lock and timeSteps
 
 
-FIX CONTROLLER
-GIT ADD AND COMIT
+FIX CONTROLLER done
+GIT ADD AND COMIT done
+
+rework event system to use bitsets
