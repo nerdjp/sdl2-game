@@ -1,9 +1,11 @@
 #pragma once
 #include <iostream>
-#include "ECS/ECS.hpp"
-#include "Math.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include "ECS/ECS.hpp"
+#include "Entity.hpp"
+#include "ECS/Transform.hpp"
+#include "Math.hpp"
 
 class Sprite : public Component
 {
@@ -12,12 +14,14 @@ public:
 	SDL_Texture* getSprite() { return sprite; }
 	SDL_Rect getSpriteMask() { return spriteMask; }
 	void setPosition(Vector position);
-	Vector getPosition() { return position; }
+	Transform* getPosition() { return position; }
+	virtual void init() override;
+	virtual void update() override;
 
 protected:
 	SDL_Texture* sprite;
 	SDL_Rect spriteMask;
-	Vector position;
+	Transform* position;
 
 };
 
@@ -25,7 +29,7 @@ class AnimatedSprite : public Sprite
 {
 public:
 	AnimatedSprite(SDL_Texture *texture, int spriteW, int spriteH, int nFrames);
-	/* virtual void Update() override; */
+	virtual void update() override;
 
 private:
 	bool animate = false;

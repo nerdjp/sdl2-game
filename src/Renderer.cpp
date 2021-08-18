@@ -35,15 +35,16 @@ void Renderer::render(SDL_Texture* texture)
 	SDL_RenderCopy(renderer, texture, NULL, &dst);
 }
 
-void Renderer::render(Sprite sprite)
+void Renderer::render(Entity& entity)
 {
-	SDL_Rect src = sprite.getSpriteMask();
+	Sprite *sprite = entity.getComponent<Sprite>();
+	SDL_Rect src = sprite->getSpriteMask();
 	SDL_Rect dst;
-	dst.x = sprite.getPosition().x;
-	dst.y = sprite.getPosition().y;
-	dst.w = sprite.getSpriteMask().w;
-	dst.h = sprite.getSpriteMask().h;
-	SDL_RenderCopy(renderer, sprite.getSprite(), &src, &dst);
+	dst.x = sprite->getPosition()->getTransform().x;
+	dst.y = sprite->getPosition()->getTransform().y;
+	dst.w = sprite->getSpriteMask().w;
+	dst.h = sprite->getSpriteMask().h;
+	SDL_RenderCopy(renderer, sprite->getSprite(), &src, &dst);
 }
 
 void Renderer::display()

@@ -1,10 +1,11 @@
 #include "Entity.hpp"
 
-Entity::Entity(SDL_Texture *texture, int xPos, int yPos)
-	: position(xPos, yPos), sprite(texture)
-{}
-
-void Entity::Update()
+void Entity::update()
 {
-	sprite.setPosition(position);
+	for (Component* c : components) c->update();
+}
+
+Entity::~Entity()
+{
+	for (Component* c: components) delete c;
 }

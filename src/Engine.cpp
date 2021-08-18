@@ -21,18 +21,20 @@ void Engine::setIsRunning(bool running)
 	isRunning = running;
 }
 
-void Engine::Update()
+void Engine::update()
 {
-	ev.queryEvents();
-	for(GameObject* go : gameObjects)
+	for(Entity *e : entities)
 	{
-		go->Update();
+		e->update();
 	}
+	ev.queryEvents();
 }
 
-void Engine::AddToUpdate(GameObject* go)
+Entity* Engine::addEntity()
 {
-	gameObjects.push_back(go);
+	Entity *e = new Entity();
+	entities.push_back(e);
+	return e;
 }
 
 void Engine::addEvent(Event event)
@@ -48,4 +50,10 @@ void Engine::close()
 const Uint8* Engine::getKeyboardState()
 {
 	return ev.getKeyboardState();
+}
+
+void Engine::cleanUp()
+{
+	for (Entity* e : entities) delete e;
+	renderer.cleanUp();
 }

@@ -27,3 +27,8 @@ Character Class
 	Has:
 		Movement
 			Velocity based
+
+ECS:
+	TransformComponent
+	SpriteComponent
+	ColiderComponent

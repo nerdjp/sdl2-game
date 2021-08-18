@@ -1,9 +1,10 @@
 #include <iostream>
 #include "Engine.hpp"
-#include "Character.hpp"
 #include "Events.hpp"
+#include "Entity.hpp"
+#include "ECS/Controller.hpp"
 
-int main(int argc, char* argv[])
+	int main(int argc, char* argv[])
 {
 	const int FPS = 60;
 	const int frameDelay = 1000/FPS;
@@ -11,19 +12,18 @@ int main(int argc, char* argv[])
 	unsigned int framestart;
 	int frameTime;
 
-	Character entity(Engine::getInstance()->getRenderer().loadTexture("res/gfx/image.png"), 10, 50, 50);
-	Entity entity2(Engine::getInstance()->getRenderer().loadTexture("res/gfx/swapped.png"), 50, 50);
-	Engine::getInstance()->AddToUpdate(&entity);
-	Engine::getInstance()->AddToUpdate(&entity2);
+	Entity *entity = Engine::getInstance()->addEntity();
+	entity->addComponent<Transform>();
+	entity->addComponent<Sprite>(Engine::getInstance()->getRenderer().loadTexture("res/gfx/image.png"));
+	entity->addComponent<Controller>(10);
 	Engine::getInstance()->setIsRunning(true);
 	while(Engine::getInstance()->getIsRunning())
 	{
 		framestart = SDL_GetTicks();
 
-		Engine::getInstance()->Update();
+		Engine::getInstance()->update();
 		Engine::getInstance()->getRenderer().clear();
-		Engine::getInstance()->getRenderer().render(entity.getSprite());
-		Engine::getInstance()->getRenderer().render(entity2.getSprite());
+		Engine::getInstance()->getRenderer().render(*entity);
 		Engine::getInstance()->getRenderer().display();
 
 		frameTime = SDL_GetTicks() - framestart;

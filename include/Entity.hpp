@@ -1,26 +1,38 @@
 #pragma once
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include <vector>
-#include "GameObject.hpp"
+#include <array>
+#include <bitset>
 #include "ECS/ECS.hpp"
-#include "ECS/Sprite.hpp"
-#include "Math.hpp"
 
-class Entity : public GameObject
+class Entity
 {
 public:
-	Entity(SDL_Texture *texture, int xPos = -1, int yPos = -1);
-	Sprite sprite;
-	int getX();
-	int getY();
-	Vector getPosition() { return position; }
-	/* std::vector<Component*> getComponent() { return components; } */
-	Sprite getSprite() { return sprite; };
-	virtual void Update() override;
+	virtual void update();
 
-protected:
-	Vector position;
-	/* std::vector<Component*> components; */
+	template <class T, class... TArgs> void addComponent(TArgs&&... args)
+	{
+		T* comp(new T(std::forward<TArgs>(args)...));
+		comp->setEntity(this);
+		components.emplace_back(comp);
+		componentArray[generateComponentTypeId<T>()] = comp;
+		componentBitSet[generateComponentTypeId<T>()] = true;
+		comp->init();
 
+	}
+
+	template <class T> T* getComponent() const
+	{
+		Component* ptr(componentArray[generateComponentTypeId<T>()]);
+		return static_cast<T*>(ptr);
+	}
+
+	bool getIsActive();
+
+	virtual ~Entity();
+
+private:
+	std::array<Component*, maxComponents> componentArray;
+	std::bitset<maxComponents> componentBitSet;
+	std::vector<Component*> components;
+	bool active = true;
 };
