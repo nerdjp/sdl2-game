@@ -41,3 +41,4 @@ $(BINDIR):
 clean:
 	$(RM) -r $(OBJDIR)
 	$(RM) -r $(BINDIR)
+
